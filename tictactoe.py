@@ -35,3 +35,21 @@ def printboard():
     print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
     print('   |   |   ')
 
+def playermove():
+    run = True
+    while run:
+        move=input("Please select a position to enter between X between 1 to 9 ")
+        try:
+            move= int(move)
+            if move>0 and move<10:
+                if freespace(move):
+                    run=False
+                    insertLetter('X',move)
+                else:
+                    print("Sorry, this space is occupied ")
+            else:
+                print("Please enter a number between 1-9 ")
+        
+        except:
+            print("Please type a number ")
+            
