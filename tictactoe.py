@@ -86,6 +86,7 @@ def computermove():
     if len(edgeval)>0:
         move=selectrandom(edgeval)
         return move
+    return move
 
 def selectrandom(li):
     import random
