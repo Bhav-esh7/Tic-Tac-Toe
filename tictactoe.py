@@ -10,14 +10,14 @@ def boardfull(board):
         return True
 
 def iswinner(b,l):
-    if (b[1]==l and b[2]==l and b[3]==l) or
+    if ((b[1]==l and b[2]==l and b[3]==l) or
     (b[4]==l and b[5]==l and b[6]==l) or
     (b[7]==l and b[8]==l and b[9]==l) or
     (b[1]==l and b[4]==l and b[7]==l) or
     (b[2]==l and b[5]==l and b[8]==l) or
     (b[3]==l and b[6]==l and b[9]==l) or
     (b[1]==l and b[5]==l and b[9]==l) or
-    (b[3]==l and b[5]==l and b[7]==l)
+    (b[3]==l and b[5]==l and b[7]==l))
 
 def insertLetter(letter,pos):
     board[pos]=letter
@@ -36,6 +36,8 @@ def printboard():
     print('   |   |   ')
 
 def playermove():
+
+
     run = True
     while run:
         move=input("Please select a position to enter between X between 1 to 9 ")
@@ -52,4 +54,41 @@ def playermove():
         
         except:
             print("Please type a number ")
-            
+
+def computermove():
+    possiblemoves=[x for x, letter in enumerate(board) if letter==' ' and x!=0]
+    move=0
+
+    for let in ['O','X']:
+        for i in possiblemoves:
+            boardcopy=board[:]
+            boardcopy[i]=let
+            if iswinner(boardcopy, let):
+                move=i
+                return move
+    
+    cornerval=[]
+    for i in possiblemoves:
+        if i in [1,3,7,9]:
+            cornerval.append(i)
+    if len(cornerval)>0:
+        move=selectrandom(cornerval)
+        return move
+
+    if 5 in possiblemoves:
+        move=5
+        return move
+
+    edgeval=[]
+    for i in possiblemoves:
+        if i in [2,4,6,8]:
+            edgeval.append(i)
+    if len(edgeval)>0:
+        move=selectrandom(edgeval)
+        return move
+
+def selectrandom(li):
+    import random
+    ln=len(li)
+    r=random.randrange(0,ln)
+    return li[r]
