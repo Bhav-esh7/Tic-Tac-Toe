@@ -10,19 +10,19 @@ def boardfull(board):
         return True
 
 def iswinner(b,l):
-    if ((b[1]==l and b[2]==l and b[3]==l) or
+    return ((b[1]==l and b[2]==l and b[3]==l) or
     (b[4]==l and b[5]==l and b[6]==l) or
     (b[7]==l and b[8]==l and b[9]==l) or
     (b[1]==l and b[4]==l and b[7]==l) or
     (b[2]==l and b[5]==l and b[8]==l) or
     (b[3]==l and b[6]==l and b[9]==l) or
     (b[1]==l and b[5]==l and b[9]==l) or
-    (b[3]==l and b[5]==l and b[7]==l))
+    (b[3]==l and b[5]==l and b[7]==l) )
 
 def insertLetter(letter,pos):
     board[pos]=letter
 
-def printboard():
+def printboard(board):
     print('   |   |   ')
     print(' ' + board[1] + ' | ' + board[2] + ' | ' + board[3])
     print('   |   |   ')
@@ -92,3 +92,39 @@ def selectrandom(li):
     ln=len(li)
     r=random.randrange(0,ln)
     return li[r]
+
+def maina():
+    print("Welcome to the game!!!")
+    printboard(board)
+
+    while not(boardfull(board)):
+        if not(iswinner(board,'O')):
+            playermove()
+            printboard(board)
+        else:
+            print("Sorry u lost the game :| ")
+            break
+
+        if not(iswinner(board,'X')):
+            move=computermove()
+            if move==0:
+                print(" ")
+            else:
+                insertLetter('O',move)
+                print("computer placed the O on position ", move, ":")
+                printboard(board)
+        else:
+            print("Yay! You Won!!!")
+            break
+
+    if boardfull(board):
+        print("No one won, The game will end in Tie")
+
+while True:
+    x=input("DO you want to play again? (y/n) ")
+    if x.lower()=='y':
+        board = [' ' for x in range(10)]
+        print("------------")
+        maina()
+    else:
+        break
